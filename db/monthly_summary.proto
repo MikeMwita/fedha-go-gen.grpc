@@ -1,7 +1,5 @@
 syntax = "proto3";
 
-import "google/protobuf/timestamp.proto";
-
 package db;
 option go_package="github.com/MikeMwita/fedha-go-gen.grpc/db";
 

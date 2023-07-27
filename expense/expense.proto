@@ -20,6 +20,7 @@ message GetExpenseRequest {
   string expense_id = 1;
 }
 
+//UPDATE
 message UpdateExpenseRequest {
   string expense_id = 1;
   string title = 2;
@@ -28,6 +29,7 @@ message UpdateExpenseRequest {
   google.protobuf.Timestamp date = 5;
 }
 
+//DELETE
 message DeleteExpenseRequest {
   string expense_id = 1;
 }
