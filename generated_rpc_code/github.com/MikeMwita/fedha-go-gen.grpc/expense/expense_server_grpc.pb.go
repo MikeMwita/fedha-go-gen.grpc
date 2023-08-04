@@ -33,6 +33,9 @@ const (
 	ExpenseService_UpdateUser_FullMethodName             = "/expense.ExpenseService/UpdateUser"
 	ExpenseService_GetPagedUsers_FullMethodName          = "/expense.ExpenseService/GetPagedUsers"
 	ExpenseService_GetUserByField_FullMethodName         = "/expense.ExpenseService/GetUserByField"
+	ExpenseService_GetUserByUsername_FullMethodName      = "/expense.ExpenseService/GetUserByUsername"
+	ExpenseService_GetUserByID_FullMethodName            = "/expense.ExpenseService/GetUserByID"
+	ExpenseService_SaveUser_FullMethodName               = "/expense.ExpenseService/SaveUser"
 )
 
 // ExpenseServiceClient is the client API for ExpenseService service.
@@ -56,6 +59,9 @@ type ExpenseServiceClient interface {
 	UpdateUser(ctx context.Context, in *UpdateUserReq, opts ...grpc.CallOption) (*UpdateUserRes, error)
 	GetPagedUsers(ctx context.Context, in *GetPagedUsersReq, opts ...grpc.CallOption) (*GetPagedUsersRes, error)
 	GetUserByField(ctx context.Context, in *GetByfieldReq, opts ...grpc.CallOption) (*GetByfieldRes, error)
+	GetUserByUsername(ctx context.Context, in *GetUserByUsernameRequest, opts ...grpc.CallOption) (*RegUserRes, error)
+	GetUserByID(ctx context.Context, in *GetUserByIDRequest, opts ...grpc.CallOption) (*RegUserRes, error)
+	SaveUser(ctx context.Context, in *SaveUserRequest, opts ...grpc.CallOption) (*User, error)
 }
 
 type expenseServiceClient struct {
@@ -192,6 +198,33 @@ func (c *expenseServiceClient) GetUserByField(ctx context.Context, in *GetByfiel
 	return out, nil
 }
 
+func (c *expenseServiceClient) GetUserByUsername(ctx context.Context, in *GetUserByUsernameRequest, opts ...grpc.CallOption) (*RegUserRes, error) {
+	out := new(RegUserRes)
+	err := c.cc.Invoke(ctx, ExpenseService_GetUserByUsername_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *expenseServiceClient) GetUserByID(ctx context.Context, in *GetUserByIDRequest, opts ...grpc.CallOption) (*RegUserRes, error) {
+	out := new(RegUserRes)
+	err := c.cc.Invoke(ctx, ExpenseService_GetUserByID_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *expenseServiceClient) SaveUser(ctx context.Context, in *SaveUserRequest, opts ...grpc.CallOption) (*User, error) {
+	out := new(User)
+	err := c.cc.Invoke(ctx, ExpenseService_SaveUser_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ExpenseServiceServer is the server API for ExpenseService service.
 // All implementations must embed UnimplementedExpenseServiceServer
 // for forward compatibility
@@ -213,6 +246,9 @@ type ExpenseServiceServer interface {
 	UpdateUser(context.Context, *UpdateUserReq) (*UpdateUserRes, error)
 	GetPagedUsers(context.Context, *GetPagedUsersReq) (*GetPagedUsersRes, error)
 	GetUserByField(context.Context, *GetByfieldReq) (*GetByfieldRes, error)
+	GetUserByUsername(context.Context, *GetUserByUsernameRequest) (*RegUserRes, error)
+	GetUserByID(context.Context, *GetUserByIDRequest) (*RegUserRes, error)
+	SaveUser(context.Context, *SaveUserRequest) (*User, error)
 	mustEmbedUnimplementedExpenseServiceServer()
 }
 
@@ -261,6 +297,15 @@ func (UnimplementedExpenseServiceServer) GetPagedUsers(context.Context, *GetPage
 }
 func (UnimplementedExpenseServiceServer) GetUserByField(context.Context, *GetByfieldReq) (*GetByfieldRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUserByField not implemented")
+}
+func (UnimplementedExpenseServiceServer) GetUserByUsername(context.Context, *GetUserByUsernameRequest) (*RegUserRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUserByUsername not implemented")
+}
+func (UnimplementedExpenseServiceServer) GetUserByID(context.Context, *GetUserByIDRequest) (*RegUserRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUserByID not implemented")
+}
+func (UnimplementedExpenseServiceServer) SaveUser(context.Context, *SaveUserRequest) (*User, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SaveUser not implemented")
 }
 func (UnimplementedExpenseServiceServer) mustEmbedUnimplementedExpenseServiceServer() {}
 
@@ -527,6 +572,60 @@ func _ExpenseService_GetUserByField_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ExpenseService_GetUserByUsername_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserByUsernameRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ExpenseServiceServer).GetUserByUsername(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ExpenseService_GetUserByUsername_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ExpenseServiceServer).GetUserByUsername(ctx, req.(*GetUserByUsernameRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ExpenseService_GetUserByID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserByIDRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ExpenseServiceServer).GetUserByID(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ExpenseService_GetUserByID_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ExpenseServiceServer).GetUserByID(ctx, req.(*GetUserByIDRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ExpenseService_SaveUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SaveUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ExpenseServiceServer).SaveUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ExpenseService_SaveUser_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ExpenseServiceServer).SaveUser(ctx, req.(*SaveUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ExpenseService_ServiceDesc is the grpc.ServiceDesc for ExpenseService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -589,6 +688,18 @@ var ExpenseService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetUserByField",
 			Handler:    _ExpenseService_GetUserByField_Handler,
+		},
+		{
+			MethodName: "GetUserByUsername",
+			Handler:    _ExpenseService_GetUserByUsername_Handler,
+		},
+		{
+			MethodName: "GetUserByID",
+			Handler:    _ExpenseService_GetUserByID_Handler,
+		},
+		{
+			MethodName: "SaveUser",
+			Handler:    _ExpenseService_SaveUser_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

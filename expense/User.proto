@@ -84,3 +84,14 @@ message GetByfieldReq {
 message GetByfieldRes {
   repeated User users = 1;
 }
+
+message GetUserByUsernameRequest {
+  string username = 1;
+}
+
+message GetUserByIDRequest {
+  string user_id = 1;
+}
+message SaveUserRequest {
+  User user = 1;
+}
