@@ -29,10 +29,13 @@ const (
 	DbService_DeleteIncome_FullMethodName           = "/db.DbService/DeleteIncome"
 	DbService_GetRemainingBalance_FullMethodName    = "/db.DbService/GetRemainingBalance"
 	DbService_GenerateMonthlySummary_FullMethodName = "/db.DbService/GenerateMonthlySummary"
-	DbService_CreateUser_FullMethodName             = "/db.DbService/CreateUser"
+	DbService_RegisterUser_FullMethodName           = "/db.DbService/RegisterUser"
 	DbService_UpdateUser_FullMethodName             = "/db.DbService/UpdateUser"
 	DbService_GetPagedUsers_FullMethodName          = "/db.DbService/GetPagedUsers"
 	DbService_GetUserByField_FullMethodName         = "/db.DbService/GetUserByField"
+	DbService_GetUserByUsername_FullMethodName      = "/db.DbService/GetUserByUsername"
+	DbService_GetUserByID_FullMethodName            = "/db.DbService/GetUserByID"
+	DbService_SaveUser_FullMethodName               = "/db.DbService/SaveUser"
 )
 
 // DbServiceClient is the client API for DbService service.
@@ -52,10 +55,13 @@ type DbServiceClient interface {
 	GetRemainingBalance(ctx context.Context, in *RemainingBalanceRequest, opts ...grpc.CallOption) (*RemainingBalanceResponse, error)
 	// MONTHLY SUMMARY
 	GenerateMonthlySummary(ctx context.Context, in *MonthlySummaryRequest, opts ...grpc.CallOption) (*MonthlySummaryResponse, error)
-	CreateUser(ctx context.Context, in *RegUserReq, opts ...grpc.CallOption) (*RegUserRes, error)
+	RegisterUser(ctx context.Context, in *RegUserReq, opts ...grpc.CallOption) (*RegUserRes, error)
 	UpdateUser(ctx context.Context, in *UpdateUserReq, opts ...grpc.CallOption) (*UpdateUserRes, error)
 	GetPagedUsers(ctx context.Context, in *GetPagedUsersReq, opts ...grpc.CallOption) (*GetPagedUsersRes, error)
 	GetUserByField(ctx context.Context, in *GetByfieldReq, opts ...grpc.CallOption) (*GetByfieldRes, error)
+	GetUserByUsername(ctx context.Context, in *GetUserByUsernameRequest, opts ...grpc.CallOption) (*RegUserRes, error)
+	GetUserByID(ctx context.Context, in *GetUserByIDRequest, opts ...grpc.CallOption) (*RegUserRes, error)
+	SaveUser(ctx context.Context, in *SaveUserRequest, opts ...grpc.CallOption) (*User, error)
 }
 
 type dbServiceClient struct {
@@ -156,9 +162,9 @@ func (c *dbServiceClient) GenerateMonthlySummary(ctx context.Context, in *Monthl
 	return out, nil
 }
 
-func (c *dbServiceClient) CreateUser(ctx context.Context, in *RegUserReq, opts ...grpc.CallOption) (*RegUserRes, error) {
+func (c *dbServiceClient) RegisterUser(ctx context.Context, in *RegUserReq, opts ...grpc.CallOption) (*RegUserRes, error) {
 	out := new(RegUserRes)
-	err := c.cc.Invoke(ctx, DbService_CreateUser_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, DbService_RegisterUser_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -192,6 +198,33 @@ func (c *dbServiceClient) GetUserByField(ctx context.Context, in *GetByfieldReq,
 	return out, nil
 }
 
+func (c *dbServiceClient) GetUserByUsername(ctx context.Context, in *GetUserByUsernameRequest, opts ...grpc.CallOption) (*RegUserRes, error) {
+	out := new(RegUserRes)
+	err := c.cc.Invoke(ctx, DbService_GetUserByUsername_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dbServiceClient) GetUserByID(ctx context.Context, in *GetUserByIDRequest, opts ...grpc.CallOption) (*RegUserRes, error) {
+	out := new(RegUserRes)
+	err := c.cc.Invoke(ctx, DbService_GetUserByID_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dbServiceClient) SaveUser(ctx context.Context, in *SaveUserRequest, opts ...grpc.CallOption) (*User, error) {
+	out := new(User)
+	err := c.cc.Invoke(ctx, DbService_SaveUser_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // DbServiceServer is the server API for DbService service.
 // All implementations must embed UnimplementedDbServiceServer
 // for forward compatibility
@@ -209,10 +242,13 @@ type DbServiceServer interface {
 	GetRemainingBalance(context.Context, *RemainingBalanceRequest) (*RemainingBalanceResponse, error)
 	// MONTHLY SUMMARY
 	GenerateMonthlySummary(context.Context, *MonthlySummaryRequest) (*MonthlySummaryResponse, error)
-	CreateUser(context.Context, *RegUserReq) (*RegUserRes, error)
+	RegisterUser(context.Context, *RegUserReq) (*RegUserRes, error)
 	UpdateUser(context.Context, *UpdateUserReq) (*UpdateUserRes, error)
 	GetPagedUsers(context.Context, *GetPagedUsersReq) (*GetPagedUsersRes, error)
 	GetUserByField(context.Context, *GetByfieldReq) (*GetByfieldRes, error)
+	GetUserByUsername(context.Context, *GetUserByUsernameRequest) (*RegUserRes, error)
+	GetUserByID(context.Context, *GetUserByIDRequest) (*RegUserRes, error)
+	SaveUser(context.Context, *SaveUserRequest) (*User, error)
 	mustEmbedUnimplementedDbServiceServer()
 }
 
@@ -250,8 +286,8 @@ func (UnimplementedDbServiceServer) GetRemainingBalance(context.Context, *Remain
 func (UnimplementedDbServiceServer) GenerateMonthlySummary(context.Context, *MonthlySummaryRequest) (*MonthlySummaryResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GenerateMonthlySummary not implemented")
 }
-func (UnimplementedDbServiceServer) CreateUser(context.Context, *RegUserReq) (*RegUserRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateUser not implemented")
+func (UnimplementedDbServiceServer) RegisterUser(context.Context, *RegUserReq) (*RegUserRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RegisterUser not implemented")
 }
 func (UnimplementedDbServiceServer) UpdateUser(context.Context, *UpdateUserReq) (*UpdateUserRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateUser not implemented")
@@ -261,6 +297,15 @@ func (UnimplementedDbServiceServer) GetPagedUsers(context.Context, *GetPagedUser
 }
 func (UnimplementedDbServiceServer) GetUserByField(context.Context, *GetByfieldReq) (*GetByfieldRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUserByField not implemented")
+}
+func (UnimplementedDbServiceServer) GetUserByUsername(context.Context, *GetUserByUsernameRequest) (*RegUserRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUserByUsername not implemented")
+}
+func (UnimplementedDbServiceServer) GetUserByID(context.Context, *GetUserByIDRequest) (*RegUserRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUserByID not implemented")
+}
+func (UnimplementedDbServiceServer) SaveUser(context.Context, *SaveUserRequest) (*User, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SaveUser not implemented")
 }
 func (UnimplementedDbServiceServer) mustEmbedUnimplementedDbServiceServer() {}
 
@@ -455,20 +500,20 @@ func _DbService_GenerateMonthlySummary_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
-func _DbService_CreateUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _DbService_RegisterUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(RegUserReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DbServiceServer).CreateUser(ctx, in)
+		return srv.(DbServiceServer).RegisterUser(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: DbService_CreateUser_FullMethodName,
+		FullMethod: DbService_RegisterUser_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DbServiceServer).CreateUser(ctx, req.(*RegUserReq))
+		return srv.(DbServiceServer).RegisterUser(ctx, req.(*RegUserReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -527,6 +572,60 @@ func _DbService_GetUserByField_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _DbService_GetUserByUsername_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserByUsernameRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DbServiceServer).GetUserByUsername(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DbService_GetUserByUsername_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DbServiceServer).GetUserByUsername(ctx, req.(*GetUserByUsernameRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DbService_GetUserByID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserByIDRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DbServiceServer).GetUserByID(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DbService_GetUserByID_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DbServiceServer).GetUserByID(ctx, req.(*GetUserByIDRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _DbService_SaveUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SaveUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(DbServiceServer).SaveUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: DbService_SaveUser_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(DbServiceServer).SaveUser(ctx, req.(*SaveUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // DbService_ServiceDesc is the grpc.ServiceDesc for DbService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -575,8 +674,8 @@ var DbService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _DbService_GenerateMonthlySummary_Handler,
 		},
 		{
-			MethodName: "CreateUser",
-			Handler:    _DbService_CreateUser_Handler,
+			MethodName: "RegisterUser",
+			Handler:    _DbService_RegisterUser_Handler,
 		},
 		{
 			MethodName: "UpdateUser",
@@ -589,6 +688,18 @@ var DbService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetUserByField",
 			Handler:    _DbService_GetUserByField_Handler,
+		},
+		{
+			MethodName: "GetUserByUsername",
+			Handler:    _DbService_GetUserByUsername_Handler,
+		},
+		{
+			MethodName: "GetUserByID",
+			Handler:    _DbService_GetUserByID_Handler,
+		},
+		{
+			MethodName: "SaveUser",
+			Handler:    _DbService_SaveUser_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

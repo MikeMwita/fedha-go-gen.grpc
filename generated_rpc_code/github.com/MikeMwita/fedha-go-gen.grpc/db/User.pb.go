@@ -745,6 +745,147 @@ func (x *GetByfieldRes) GetUsers() []*User {
 	return nil
 }
 
+type GetUserByUsernameRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Username string `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
+}
+
+func (x *GetUserByUsernameRequest) Reset() {
+	*x = GetUserByUsernameRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_User_proto_msgTypes[9]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetUserByUsernameRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetUserByUsernameRequest) ProtoMessage() {}
+
+func (x *GetUserByUsernameRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_User_proto_msgTypes[9]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetUserByUsernameRequest.ProtoReflect.Descriptor instead.
+func (*GetUserByUsernameRequest) Descriptor() ([]byte, []int) {
+	return file_User_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *GetUserByUsernameRequest) GetUsername() string {
+	if x != nil {
+		return x.Username
+	}
+	return ""
+}
+
+type GetUserByIDRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	UserId string `protobuf:"bytes,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+}
+
+func (x *GetUserByIDRequest) Reset() {
+	*x = GetUserByIDRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_User_proto_msgTypes[10]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetUserByIDRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetUserByIDRequest) ProtoMessage() {}
+
+func (x *GetUserByIDRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_User_proto_msgTypes[10]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetUserByIDRequest.ProtoReflect.Descriptor instead.
+func (*GetUserByIDRequest) Descriptor() ([]byte, []int) {
+	return file_User_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *GetUserByIDRequest) GetUserId() string {
+	if x != nil {
+		return x.UserId
+	}
+	return ""
+}
+
+type SaveUserRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	User *User `protobuf:"bytes,1,opt,name=user,proto3" json:"user,omitempty"`
+}
+
+func (x *SaveUserRequest) Reset() {
+	*x = SaveUserRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_User_proto_msgTypes[11]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SaveUserRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SaveUserRequest) ProtoMessage() {}
+
+func (x *SaveUserRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_User_proto_msgTypes[11]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SaveUserRequest.ProtoReflect.Descriptor instead.
+func (*SaveUserRequest) Descriptor() ([]byte, []int) {
+	return file_User_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *SaveUserRequest) GetUser() *User {
+	if x != nil {
+		return x.User
+	}
+	return nil
+}
+
 var File_User_proto protoreflect.FileDescriptor
 
 var file_User_proto_rawDesc = []byte{
@@ -865,10 +1006,20 @@ var file_User_proto_rawDesc = []byte{
 	0x3a, 0x02, 0x38, 0x01, 0x22, 0x2f, 0x0a, 0x0d, 0x47, 0x65, 0x74, 0x42, 0x79, 0x66, 0x69, 0x65,
 	0x6c, 0x64, 0x52, 0x65, 0x73, 0x12, 0x1e, 0x0a, 0x05, 0x75, 0x73, 0x65, 0x72, 0x73, 0x18, 0x01,
 	0x20, 0x03, 0x28, 0x0b, 0x32, 0x08, 0x2e, 0x64, 0x62, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x52, 0x05,
-	0x75, 0x73, 0x65, 0x72, 0x73, 0x42, 0x2b, 0x5a, 0x29, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e,
-	0x63, 0x6f, 0x6d, 0x2f, 0x4d, 0x69, 0x6b, 0x65, 0x4d, 0x77, 0x69, 0x74, 0x61, 0x2f, 0x66, 0x65,
-	0x64, 0x68, 0x61, 0x2d, 0x67, 0x6f, 0x2d, 0x67, 0x65, 0x6e, 0x2e, 0x67, 0x72, 0x70, 0x63, 0x2f,
-	0x64, 0x62, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x75, 0x73, 0x65, 0x72, 0x73, 0x22, 0x36, 0x0a, 0x18, 0x47, 0x65, 0x74, 0x55, 0x73, 0x65, 0x72,
+	0x42, 0x79, 0x55, 0x73, 0x65, 0x72, 0x6e, 0x61, 0x6d, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x12, 0x1a, 0x0a, 0x08, 0x75, 0x73, 0x65, 0x72, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x08, 0x75, 0x73, 0x65, 0x72, 0x6e, 0x61, 0x6d, 0x65, 0x22, 0x2d, 0x0a,
+	0x12, 0x47, 0x65, 0x74, 0x55, 0x73, 0x65, 0x72, 0x42, 0x79, 0x49, 0x44, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x12, 0x17, 0x0a, 0x07, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x64, 0x22, 0x2f, 0x0a, 0x0f,
+	0x53, 0x61, 0x76, 0x65, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12,
+	0x1c, 0x0a, 0x04, 0x75, 0x73, 0x65, 0x72, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x08, 0x2e,
+	0x64, 0x62, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x52, 0x04, 0x75, 0x73, 0x65, 0x72, 0x42, 0x2b, 0x5a,
+	0x29, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x4d, 0x69, 0x6b, 0x65,
+	0x4d, 0x77, 0x69, 0x74, 0x61, 0x2f, 0x66, 0x65, 0x64, 0x68, 0x61, 0x2d, 0x67, 0x6f, 0x2d, 0x67,
+	0x65, 0x6e, 0x2e, 0x67, 0x72, 0x70, 0x63, 0x2f, 0x64, 0x62, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74,
+	0x6f, 0x33,
 }
 
 var (
@@ -883,40 +1034,44 @@ func file_User_proto_rawDescGZIP() []byte {
 	return file_User_proto_rawDescData
 }
 
-var file_User_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
+var file_User_proto_msgTypes = make([]protoimpl.MessageInfo, 13)
 var file_User_proto_goTypes = []interface{}{
-	(*User)(nil),                  // 0: db.User
-	(*RegUserReq)(nil),            // 1: db.RegUserReq
-	(*RegUserRes)(nil),            // 2: db.RegUserRes
-	(*UpdateUserReq)(nil),         // 3: db.UpdateUserReq
-	(*UpdateUserRes)(nil),         // 4: db.UpdateUserRes
-	(*GetPagedUsersReq)(nil),      // 5: db.GetPagedUsersReq
-	(*GetPagedUsersRes)(nil),      // 6: db.GetPagedUsersRes
-	(*GetByfieldReq)(nil),         // 7: db.GetByfieldReq
-	(*GetByfieldRes)(nil),         // 8: db.GetByfieldRes
-	nil,                           // 9: db.GetByfieldReq.FilterEntry
-	(*timestamppb.Timestamp)(nil), // 10: google.protobuf.Timestamp
-	(*anypb.Any)(nil),             // 11: google.protobuf.Any
+	(*User)(nil),                     // 0: db.User
+	(*RegUserReq)(nil),               // 1: db.RegUserReq
+	(*RegUserRes)(nil),               // 2: db.RegUserRes
+	(*UpdateUserReq)(nil),            // 3: db.UpdateUserReq
+	(*UpdateUserRes)(nil),            // 4: db.UpdateUserRes
+	(*GetPagedUsersReq)(nil),         // 5: db.GetPagedUsersReq
+	(*GetPagedUsersRes)(nil),         // 6: db.GetPagedUsersRes
+	(*GetByfieldReq)(nil),            // 7: db.GetByfieldReq
+	(*GetByfieldRes)(nil),            // 8: db.GetByfieldRes
+	(*GetUserByUsernameRequest)(nil), // 9: db.GetUserByUsernameRequest
+	(*GetUserByIDRequest)(nil),       // 10: db.GetUserByIDRequest
+	(*SaveUserRequest)(nil),          // 11: db.SaveUserRequest
+	nil,                              // 12: db.GetByfieldReq.FilterEntry
+	(*timestamppb.Timestamp)(nil),    // 13: google.protobuf.Timestamp
+	(*anypb.Any)(nil),                // 14: google.protobuf.Any
 }
 var file_User_proto_depIdxs = []int32{
-	10, // 0: db.User.created_at:type_name -> google.protobuf.Timestamp
-	10, // 1: db.User.updated_at:type_name -> google.protobuf.Timestamp
-	10, // 2: db.User.deleted_at:type_name -> google.protobuf.Timestamp
-	10, // 3: db.RegUserRes.created_at:type_name -> google.protobuf.Timestamp
-	10, // 4: db.RegUserRes.updated_at:type_name -> google.protobuf.Timestamp
-	10, // 5: db.RegUserRes.deleted_at:type_name -> google.protobuf.Timestamp
-	10, // 6: db.UpdateUserRes.created_at:type_name -> google.protobuf.Timestamp
-	10, // 7: db.UpdateUserRes.updated_at:type_name -> google.protobuf.Timestamp
-	10, // 8: db.UpdateUserRes.deleted_at:type_name -> google.protobuf.Timestamp
+	13, // 0: db.User.created_at:type_name -> google.protobuf.Timestamp
+	13, // 1: db.User.updated_at:type_name -> google.protobuf.Timestamp
+	13, // 2: db.User.deleted_at:type_name -> google.protobuf.Timestamp
+	13, // 3: db.RegUserRes.created_at:type_name -> google.protobuf.Timestamp
+	13, // 4: db.RegUserRes.updated_at:type_name -> google.protobuf.Timestamp
+	13, // 5: db.RegUserRes.deleted_at:type_name -> google.protobuf.Timestamp
+	13, // 6: db.UpdateUserRes.created_at:type_name -> google.protobuf.Timestamp
+	13, // 7: db.UpdateUserRes.updated_at:type_name -> google.protobuf.Timestamp
+	13, // 8: db.UpdateUserRes.deleted_at:type_name -> google.protobuf.Timestamp
 	0,  // 9: db.GetPagedUsersRes.users:type_name -> db.User
-	9,  // 10: db.GetByfieldReq.filter:type_name -> db.GetByfieldReq.FilterEntry
+	12, // 10: db.GetByfieldReq.filter:type_name -> db.GetByfieldReq.FilterEntry
 	0,  // 11: db.GetByfieldRes.users:type_name -> db.User
-	11, // 12: db.GetByfieldReq.FilterEntry.value:type_name -> google.protobuf.Any
-	13, // [13:13] is the sub-list for method output_type
-	13, // [13:13] is the sub-list for method input_type
-	13, // [13:13] is the sub-list for extension type_name
-	13, // [13:13] is the sub-list for extension extendee
-	0,  // [0:13] is the sub-list for field type_name
+	0,  // 12: db.SaveUserRequest.user:type_name -> db.User
+	14, // 13: db.GetByfieldReq.FilterEntry.value:type_name -> google.protobuf.Any
+	14, // [14:14] is the sub-list for method output_type
+	14, // [14:14] is the sub-list for method input_type
+	14, // [14:14] is the sub-list for extension type_name
+	14, // [14:14] is the sub-list for extension extendee
+	0,  // [0:14] is the sub-list for field type_name
 }
 
 func init() { file_User_proto_init() }
@@ -1033,6 +1188,42 @@ func file_User_proto_init() {
 				return nil
 			}
 		}
+		file_User_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetUserByUsernameRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_User_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetUserByIDRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_User_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SaveUserRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -1040,7 +1231,7 @@ func file_User_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_User_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   10,
+			NumMessages:   13,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
