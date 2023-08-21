@@ -36,7 +36,8 @@ message GetIncomeResponse {
 message UpdateIncomeRequest {
   string income_id = 1;
   double amount = 2;
-  google.protobuf.Timestamp date = 3;
+  Income new_income = 3;
+  google.protobuf.Timestamp date = 5;
 }
 
 message UpdateIncomeResponse {
