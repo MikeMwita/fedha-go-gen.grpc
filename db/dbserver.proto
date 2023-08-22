@@ -12,11 +12,10 @@ option go_package="github.com/MikeMwita/fedha-go-gen.grpc/db";
 
 //EXPENSES
 service DbService {
-
-  rpc CreateExpense (ExpenseRequest) returns (ExpenseResponse);
-  rpc GetExpense (GetExpenseRequest) returns (ExpenseResponse);
-  rpc UpdateExpense (UpdateExpenseRequest) returns (ExpenseResponse);
-  rpc DeleteExpense (DeleteExpenseRequest) returns (DeleteExpenseResponse);
+  rpc CreateExpense (CreateExpenseRequest) returns (CreateExpenseResponse){}
+  rpc GetExpense (GetExpenseRequest) returns (GetExpenseResponse){}
+  rpc UpdateExpense (UpdateExpenseRequest) returns (UpdateExpenseResponse){}
+  rpc DeleteExpense (DeleteExpenseRequest) returns (DeleteExpenseResponse){}
 
 
   //INCOMES

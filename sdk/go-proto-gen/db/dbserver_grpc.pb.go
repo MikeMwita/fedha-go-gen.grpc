@@ -42,9 +42,9 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type DbServiceClient interface {
-	CreateExpense(ctx context.Context, in *ExpenseRequest, opts ...grpc.CallOption) (*ExpenseResponse, error)
-	GetExpense(ctx context.Context, in *GetExpenseRequest, opts ...grpc.CallOption) (*ExpenseResponse, error)
-	UpdateExpense(ctx context.Context, in *UpdateExpenseRequest, opts ...grpc.CallOption) (*ExpenseResponse, error)
+	CreateExpense(ctx context.Context, in *CreateExpenseRequest, opts ...grpc.CallOption) (*CreateExpenseResponse, error)
+	GetExpense(ctx context.Context, in *GetExpenseRequest, opts ...grpc.CallOption) (*GetExpenseResponse, error)
+	UpdateExpense(ctx context.Context, in *UpdateExpenseRequest, opts ...grpc.CallOption) (*UpdateExpenseResponse, error)
 	DeleteExpense(ctx context.Context, in *DeleteExpenseRequest, opts ...grpc.CallOption) (*DeleteExpenseResponse, error)
 	// INCOMES
 	CreateIncome(ctx context.Context, in *CreateIncomeRequest, opts ...grpc.CallOption) (*CreateIncomeResponse, error)
@@ -72,8 +72,8 @@ func NewDbServiceClient(cc grpc.ClientConnInterface) DbServiceClient {
 	return &dbServiceClient{cc}
 }
 
-func (c *dbServiceClient) CreateExpense(ctx context.Context, in *ExpenseRequest, opts ...grpc.CallOption) (*ExpenseResponse, error) {
-	out := new(ExpenseResponse)
+func (c *dbServiceClient) CreateExpense(ctx context.Context, in *CreateExpenseRequest, opts ...grpc.CallOption) (*CreateExpenseResponse, error) {
+	out := new(CreateExpenseResponse)
 	err := c.cc.Invoke(ctx, DbService_CreateExpense_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -81,8 +81,8 @@ func (c *dbServiceClient) CreateExpense(ctx context.Context, in *ExpenseRequest,
 	return out, nil
 }
 
-func (c *dbServiceClient) GetExpense(ctx context.Context, in *GetExpenseRequest, opts ...grpc.CallOption) (*ExpenseResponse, error) {
-	out := new(ExpenseResponse)
+func (c *dbServiceClient) GetExpense(ctx context.Context, in *GetExpenseRequest, opts ...grpc.CallOption) (*GetExpenseResponse, error) {
+	out := new(GetExpenseResponse)
 	err := c.cc.Invoke(ctx, DbService_GetExpense_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -90,8 +90,8 @@ func (c *dbServiceClient) GetExpense(ctx context.Context, in *GetExpenseRequest,
 	return out, nil
 }
 
-func (c *dbServiceClient) UpdateExpense(ctx context.Context, in *UpdateExpenseRequest, opts ...grpc.CallOption) (*ExpenseResponse, error) {
-	out := new(ExpenseResponse)
+func (c *dbServiceClient) UpdateExpense(ctx context.Context, in *UpdateExpenseRequest, opts ...grpc.CallOption) (*UpdateExpenseResponse, error) {
+	out := new(UpdateExpenseResponse)
 	err := c.cc.Invoke(ctx, DbService_UpdateExpense_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -229,9 +229,9 @@ func (c *dbServiceClient) SaveUser(ctx context.Context, in *SaveUserRequest, opt
 // All implementations must embed UnimplementedDbServiceServer
 // for forward compatibility
 type DbServiceServer interface {
-	CreateExpense(context.Context, *ExpenseRequest) (*ExpenseResponse, error)
-	GetExpense(context.Context, *GetExpenseRequest) (*ExpenseResponse, error)
-	UpdateExpense(context.Context, *UpdateExpenseRequest) (*ExpenseResponse, error)
+	CreateExpense(context.Context, *CreateExpenseRequest) (*CreateExpenseResponse, error)
+	GetExpense(context.Context, *GetExpenseRequest) (*GetExpenseResponse, error)
+	UpdateExpense(context.Context, *UpdateExpenseRequest) (*UpdateExpenseResponse, error)
 	DeleteExpense(context.Context, *DeleteExpenseRequest) (*DeleteExpenseResponse, error)
 	// INCOMES
 	CreateIncome(context.Context, *CreateIncomeRequest) (*CreateIncomeResponse, error)
@@ -256,13 +256,13 @@ type DbServiceServer interface {
 type UnimplementedDbServiceServer struct {
 }
 
-func (UnimplementedDbServiceServer) CreateExpense(context.Context, *ExpenseRequest) (*ExpenseResponse, error) {
+func (UnimplementedDbServiceServer) CreateExpense(context.Context, *CreateExpenseRequest) (*CreateExpenseResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateExpense not implemented")
 }
-func (UnimplementedDbServiceServer) GetExpense(context.Context, *GetExpenseRequest) (*ExpenseResponse, error) {
+func (UnimplementedDbServiceServer) GetExpense(context.Context, *GetExpenseRequest) (*GetExpenseResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetExpense not implemented")
 }
-func (UnimplementedDbServiceServer) UpdateExpense(context.Context, *UpdateExpenseRequest) (*ExpenseResponse, error) {
+func (UnimplementedDbServiceServer) UpdateExpense(context.Context, *UpdateExpenseRequest) (*UpdateExpenseResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateExpense not implemented")
 }
 func (UnimplementedDbServiceServer) DeleteExpense(context.Context, *DeleteExpenseRequest) (*DeleteExpenseResponse, error) {
@@ -321,7 +321,7 @@ func RegisterDbServiceServer(s grpc.ServiceRegistrar, srv DbServiceServer) {
 }
 
 func _DbService_CreateExpense_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ExpenseRequest)
+	in := new(CreateExpenseRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -333,7 +333,7 @@ func _DbService_CreateExpense_Handler(srv interface{}, ctx context.Context, dec 
 		FullMethod: DbService_CreateExpense_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DbServiceServer).CreateExpense(ctx, req.(*ExpenseRequest))
+		return srv.(DbServiceServer).CreateExpense(ctx, req.(*CreateExpenseRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
